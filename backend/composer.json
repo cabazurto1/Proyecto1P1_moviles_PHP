@@ -1,0 +1,14 @@
+{
+    "name": "proyecto1p1/api",
+    "description": "API REST para gestión de usuarios y login",
+    "require": {
+        "firebase/php-jwt": "^6.3",
+        "ext-pdo": "*",
+        "ext-mysqli": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
