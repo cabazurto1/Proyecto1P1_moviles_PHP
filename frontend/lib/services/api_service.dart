@@ -4,7 +4,7 @@ import '../models/user.dart';
 
 class ApiService {
   final String baseUrl = 'http://localhost:8080/api/user';
-
+  final String auth = 'http://localhost:8080/api/auth';
   // Método para registrar un usuario
   Future<Map<String, dynamic>> registerUser(User user) async {
     final url = Uri.parse('$baseUrl/create.php');
@@ -31,6 +31,28 @@ class ApiService {
       return data.map((item) => User.fromJson(item)).toList();
     } else {
       throw Exception('Error al obtener usuarios.');
+    }
+  }
+
+  // Método de inicio de sesión
+  Future<Map<String, dynamic>> loginUser(String email, String password) async {
+    final url = Uri.parse('http://localhost:8080/api/auth/login.php');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      // Devolver el cuerpo de la respuesta decodificado
+      return json.decode(response.body);
+    } catch (e) {
+      // Manejar cualquier error de red
+      throw Exception('Error de conexión: $e');
     }
   }
 

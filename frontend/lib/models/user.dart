@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class User {
   final String name;
   final String email;
@@ -30,4 +33,14 @@ class User {
       'birth_date': birthDate,
     };
   }
+
+  // Método para convertir credenciales de login a JSON
+  Map<String, dynamic> toLoginJson() {
+    return {
+      'email': email,
+      'password': password,
+    };
+  }
+
+
 }

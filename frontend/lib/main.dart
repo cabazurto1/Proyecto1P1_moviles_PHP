@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/LoginScreen.dart';
+import 'screens/main_page.dart';
 import 'screens/register_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Roboto',
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        useMaterial3: true,
       ),
-      home: RegisterScreen(),
+      initialRoute: '/', // Ruta inicial
+      routes: {
+        '/': (context) => const MainPage(), // Ruta de pantalla principal
+        '/register': (context) => RegisterScreen(),
+        '/login': (context) => LoginScreen(), // Ruta de pantalla de registro
+      },
     );
   }
 }
