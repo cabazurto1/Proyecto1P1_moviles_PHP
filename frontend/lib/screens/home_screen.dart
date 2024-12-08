@@ -90,50 +90,74 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text('Lista de Usuarios', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Color(0xFF5C6E6E), // Color de fondo más suave
+        title: Text('Lista de Usuarios', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
         actions: [
-          IconButton(
-            icon: Icon(Icons.logout, color: Colors.white),
-            onPressed: _logout,  // Llamamos a la función de cerrar sesión
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.logout, color: Colors.white),
+                onPressed: _logout,  // Llamamos a la función de cerrar sesión
+              ),
+              TextButton(
+                onPressed: _logout,
+                child: Text(
+                  'Cerrar sesión',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (context, index) {
-            User user = users[index];
-            return Card(
-              elevation: 5,
-              margin: const EdgeInsets.only(bottom: 10),
-              child: ListTile(
-                contentPadding: EdgeInsets.all(16),
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blueAccent,
-                  child: Text(user.name[0].toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF331B3B), // Color oscuro de la paleta
+              Color(0xFF5C6E6E), // Gris suave
+              Color(0xFF333E50), // Otro tono oscuro
+            ],
+          ),
+        ),
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: users.length,
+            itemBuilder: (context, index) {
+              User user = users[index];
+              return Card(
+                elevation: 5,
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(16),
+                  leading: CircleAvatar(
+                    backgroundColor: Color(0xFF331B3B),
+                    child: Text(user.name[0].toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  ),
+                  title: Text(user.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
+                  subtitle: Text(user.email, style: TextStyle(color: Colors.grey)),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit, color: Color(0xFF331B3B)),
+                        onPressed: () => _editUser(user),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () => _deleteUser(user.email),
+                      ),
+                    ],
+                  ),
                 ),
-                title: Text(user.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                subtitle: Text(user.email, style: TextStyle(color: Colors.grey)),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit, color: Colors.blueAccent),
-                      onPressed: () => _editUser(user),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () => _deleteUser(user.email),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

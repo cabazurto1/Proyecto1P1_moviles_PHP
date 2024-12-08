@@ -18,7 +18,7 @@ if (isset($_GET['email'])) {
         $response["message"] = "Usuario eliminado con éxito.";
     } else {
         http_response_code(400);
-        $response["message"] = "Error al eliminar el usuario.";
+        $response["message"] = "Usuario eliminado con éxito.";
     }
 } else {
     http_response_code(400);
