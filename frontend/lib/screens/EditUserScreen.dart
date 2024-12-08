@@ -58,7 +58,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Usuario'),
+        title: Text('Editar Usuario', style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0xFF5C6E6E),
       ),
       body: Container(
