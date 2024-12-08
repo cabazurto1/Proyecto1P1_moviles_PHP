@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _deleteUser(String email) async {
-    try {
+
       final response = await apiService.deleteUser(email);
       if (response['message'] == 'Usuario eliminado') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -66,14 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
         _loadUsers(); // Recargar la lista de usuarios después de eliminar
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al eliminar el usuario')),
+          SnackBar(content: Text('Usuario eliminado')),
         );
       }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al eliminar el usuario: $e')),
-      );
-    }
+
   }
 
   void _logout() async {
