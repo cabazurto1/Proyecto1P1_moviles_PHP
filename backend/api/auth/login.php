@@ -1,4 +1,9 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier dominio
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 require '../config/database.php';
 require '../config/jwt.php';
 

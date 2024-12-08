@@ -71,4 +71,27 @@ class ApiService {
       return {'message': 'Error al actualizar el usuario.'};
     }
   }
+
+  Future<Map<String, dynamic>> deleteUser(String email) async {
+    final url = Uri.parse('$baseUrl/delete.php?email=$email'); // Pasamos el email como parámetro en la URL
+    final response = await http.delete(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['message'] == 'Usuario eliminado con éxito.') {
+        return data;  // Retornamos la respuesta exitosa
+      } else {
+        throw Exception('Error al eliminar el usuario: ${data['message']}');
+      }
+    } else {
+      throw Exception('Usuario eliminado con éxito');
+    }
+  }
+
+
+
+
 }

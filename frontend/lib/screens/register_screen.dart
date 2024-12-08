@@ -47,150 +47,158 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Registro de Usuario',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Crea tu cuenta',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Llena los campos a continuación para registrarte.',
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
-                ),
-                const SizedBox(height: 30),
-                _buildTextField(
-                  controller: _nameController,
-                  label: 'Nombre',
-                  icon: Icons.person,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'El nombre es obligatorio';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                _buildTextField(
-                  controller: _emailController,
-                  label: 'Correo Electrónico',
-                  icon: Icons.email,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'El correo electrónico es obligatorio';
-                    }
-                    final emailRegex =
-                    RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                    if (!emailRegex.hasMatch(value)) {
-                      return 'Ingresa un correo electrónico válido';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                _buildTextField(
-                  controller: _passwordController,
-                  label: 'Contraseña',
-                  icon: Icons.lock,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'La contraseña es obligatoria';
-                    }
-                    if (value.length < 6) {
-                      return 'La contraseña debe tener al menos 6 caracteres';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                _buildTextField(
-                  controller: _birthDateController,
-                  label: 'Fecha de Nacimiento (DD-MM-YYYY)',
-                  icon: Icons.calendar_today,
-                  keyboardType: TextInputType.datetime,
-                  readOnly: true,
-                  onTap: () async {
-                    final selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                    );
-                    if (selectedDate != null) {
-                      _birthDateController.text =
-                          DateFormat('dd-MM-yyyy').format(selectedDate);
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'La fecha de nacimiento es obligatoria';
-                    }
-                    try {
-                      DateFormat('dd-MM-yyyy').parse(value);
-                    } catch (_) {
-                      return 'El formato de la fecha es incorrecto';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 40),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _register,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Registrar',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      '¿Ya tienes una cuenta? Inicia sesión',
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF331B3B), // Color oscuro de la paleta
+              Color(0xFF5C6E6E), // Gris suave
+              Color(0xFF333E50), // Otro tono oscuro
+            ],
           ),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 80),
+                        Text(
+                          'Crea tu cuenta',
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white, // Claro para contraste
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Llena los campos a continuación para registrarte.',
+                          style: TextStyle(fontSize: 16, color: Color(0xFFF1DEBD)),
+                        ),
+                        const SizedBox(height: 30),
+                        _buildTextField(
+                          controller: _nameController,
+                          label: 'Nombre',
+                          icon: Icons.person,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'El nombre es obligatorio';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        _buildTextField(
+                          controller: _emailController,
+                          label: 'Correo Electrónico',
+                          icon: Icons.email,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'El correo electrónico es obligatorio';
+                            }
+                            final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                            if (!emailRegex.hasMatch(value)) {
+                              return 'Ingresa un correo electrónico válido';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        _buildTextField(
+                          controller: _passwordController,
+                          label: 'Contraseña',
+                          icon: Icons.lock,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'La contraseña es obligatoria';
+                            }
+                            if (value.length < 6) {
+                              return 'La contraseña debe tener al menos 6 caracteres';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        _buildTextField(
+                          controller: _birthDateController,
+                          label: 'Fecha de Nacimiento (DD-MM-YYYY)',
+                          icon: Icons.calendar_today,
+                          keyboardType: TextInputType.datetime,
+                          readOnly: true,
+                          onTap: () async {
+                            final selectedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                            if (selectedDate != null) {
+                              _birthDateController.text =
+                                  DateFormat('dd-MM-yyyy').format(selectedDate);
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'La fecha de nacimiento es obligatoria';
+                            }
+                            try {
+                              DateFormat('dd-MM-yyyy').parse(value);
+                            } catch (_) {
+                              return 'El formato de la fecha es incorrecto';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 40),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: _register,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFF1DEBD), // Fondo claro
+                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30), // Bordes redondeados
+                              ),
+                            ),
+                            child: const Text(
+                              'Registrar',
+                              style: TextStyle(fontSize: 18, color: Color(0xFF331B3B)), // Color oscuro
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              '¿Ya tienes una cuenta? Inicia sesión',
+                              style: TextStyle(
+                                color: Colors.white, // Color oscuro
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -214,11 +222,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onTap: onTap,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: icon != null ? Icon(icon, color: Colors.blueAccent) : null,
+        prefixIcon: icon != null ? Icon(icon, color: Color(0xFF331B3B)) : null, // Color de los iconos
         filled: true,
-        fillColor: Colors.grey[100],
+        fillColor: Color(0xFFF1DEBD), // Fondo claro
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20), // Bordes redondeados
           borderSide: BorderSide.none,
         ),
       ),

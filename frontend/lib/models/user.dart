@@ -14,16 +14,15 @@ class User {
     required this.birthDate,
   });
 
-  // Método para convertir de JSON a un objeto User
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      name: json['name'],
-      email: json['email'],
-      password: json['password'],
-      birthDate: json['birth_date'],
+      name: json['name'] ?? 'Desconocido',  // Valor por defecto si es null
+      email: json['email'] ?? 'Sin correo',
+      password: json['password'] ?? 'Sin contraseña',
+      birthDate: json['birth_date'] ?? 'Sin fecha de nacimiento',
     );
   }
-
   // Método para convertir un objeto User a JSON
   Map<String, dynamic> toJson() {
     return {

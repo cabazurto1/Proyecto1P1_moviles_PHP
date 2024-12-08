@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/LoginScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'screens/LoginScreen.dart';
+import 'screens/home_screen.dart';
 import 'screens/main_page.dart';
 import 'screens/register_screen.dart';
 
@@ -23,8 +26,38 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MainPage(), // Ruta de pantalla principal
         '/register': (context) => RegisterScreen(),
-        '/login': (context) => LoginScreen(), // Ruta de pantalla de registro
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(), // Ruta de pantalla principal
       },
     );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _checkLoginStatus(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        } else {
+          if (snapshot.hasData && snapshot.data == true) {
+            return HomeScreen(); // Redirigir a HomeScreen si el token está presente
+          } else {
+            return LoginScreen(); // Redirigir a LoginScreen si no hay token
+          }
+        }
+      },
+    );
+  }
+
+  // Verificar si el token está guardado
+  Future<bool> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    return token != null; // Si el token existe, se considera como usuario autenticado
   }
 }
