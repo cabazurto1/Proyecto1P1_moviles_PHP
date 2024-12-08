@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/api_service.dart';
 import '../models/user.dart';
+import 'EditUserScreen.dart';
 import 'LoginScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,9 +53,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _editUser(User user) {
-    // Implementar lógica para editar el usuario
-    // Podrías navegar a otra pantalla de edición de usuario
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditUserScreen(user: user),
+      ),
+    ).then((updatedUser) {
+      if (updatedUser != null) {
+        // Si el usuario fue actualizado, recargamos la lista
+        setState(() {
+          int index = users.indexWhere((u) => u.email == updatedUser.email);
+          users[index] = updatedUser; // Actualizamos el usuario en la lista
+        });
+      }
+    });
   }
+
 
   void _deleteUser(String email) async {
 
@@ -71,6 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
   }
+
+
 
   void _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
