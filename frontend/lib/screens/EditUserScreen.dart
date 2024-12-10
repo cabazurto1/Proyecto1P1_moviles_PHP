@@ -48,7 +48,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
         Navigator.pop(context, updatedUser); // Volver con el usuario actualizado
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al actualizar el usuario')),
+          SnackBar(content: Text('Error al actualizar el usuario: ${response['message']}')),
         );
       }
     }
@@ -60,6 +60,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       appBar: AppBar(
         title: Text('Editar Usuario', style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0xFF5C6E6E),
+        foregroundColor: Colors.white,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -91,23 +92,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
-                _buildTextField(
-                  controller: _emailController,
-                  label: 'Correo Electrónico',
-                  icon: Icons.email,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'El correo electrónico es obligatorio';
-                    }
-                    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                    if (!emailRegex.hasMatch(value)) {
-                      return 'Ingresa un correo electrónico válido';
-                    }
-                    return null;
-                  },
-                ),
+
                 SizedBox(height: 20),
                 _buildTextField(
                   controller: _passwordController,

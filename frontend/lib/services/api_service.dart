@@ -15,11 +15,18 @@ class ApiService {
     );
 
     if (response.statusCode == 201) {
-      return json.decode(response.body);
+      // Usuario creado con éxito
+      return {"success": true, "message": "Usuario creado exitosamente."};
+    } else if (response.statusCode == 400) {
+      // Error de validación
+      final errorData = json.decode(response.body);
+      return {"success": false, "message": errorData["message"]};
     } else {
-      return {'message': 'Error al crear el usuario.'};
+      // Otros errores
+      return {"success": false, "message": "El correo ya está registrado."};
     }
   }
+
 
   // Método para obtener usuarios
   Future<List<User>> getUsers() async {
@@ -59,18 +66,20 @@ class ApiService {
   // Método para actualizar un usuario
   Future<Map<String, dynamic>> updateUser(User user) async {
     final url = Uri.parse('$baseUrl/update.php');
-    final response = await http.put(
-      url,
+    final response = await http.post(
+      url,  // Cambiar PUT a POST
       headers: {"Content-Type": "application/json"},
       body: json.encode(user.toJson()),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return json.decode(response.body);
     } else {
-      return {'message': 'Error al actualizar el usuario.'};
+      final error = json.decode(response.body);
+      return {'message': error['message'] ?? 'Error al actualizar el usuario.'};
     }
   }
+
 
   Future<Map<String, dynamic>> deleteUser(String email) async {
     final url = Uri.parse('$baseUrl/delete.php?email=$email'); // Pasamos el email como parámetro en la URL

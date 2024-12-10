@@ -36,9 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Usuario creado exitosamente!')),
         );
+        Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${response['message']}')),
+          SnackBar(content: Text('${response['message']}')),
         );
       }
     }
@@ -47,6 +48,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Registrar Usuario', style: TextStyle(color: Colors.white),),
+        backgroundColor: Color(0xFF5C6E6E),
+        foregroundColor: Colors.white,
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
