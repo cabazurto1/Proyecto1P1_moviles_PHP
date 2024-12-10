@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final ApiService apiService = ApiService();
   bool _isLoading = false;
+  bool _isPasswordVisible = false; // Variable para manejar la visibilidad de la contraseña
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
@@ -70,9 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF331B3B), // Color oscuro
-              Color(0xFF5C6E6E), // Color gris suave
-              Color(0xFF333E50), // Otro tono oscuro
+              Color(0xFF080705),
+              Color(0xFF08415C),
+              Color(0xFFB5FFE1),
             ],
           ),
         ),
@@ -123,13 +124,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _passwordController,
                           label: 'Contraseña',
                           icon: Icons.lock,
-                          obscureText: true,
+                          obscureText: !_isPasswordVisible, // Cambiar según la visibilidad
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'La contraseña es obligatoria';
                             }
                             return null;
                           },
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible; // Cambiar la visibilidad
+                              });
+                            },
+                          ),
                         ),
                         SizedBox(height: 30),
                         Center(
@@ -146,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: Text(
                               'Iniciar Sesión',
-                              style: TextStyle(fontSize: 18, color: Color(0xFF331B3B)), // Color oscuro
+                              style: TextStyle(fontSize: 18, color: Color(0xFF08415C)), // Color oscuro
                             ),
                           ),
                         ),
@@ -187,22 +199,27 @@ class _LoginScreenState extends State<LoginScreen> {
     bool obscureText = false,
     TextInputType keyboardType = TextInputType.text,
     String? Function(String?)? validator,
+    Widget? suffixIcon,
   }) {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      style: TextStyle(color: Colors.white), // Color morado oscuro para el texto
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: icon != null ? Icon(icon, color: Color(0xFF331B3B)) : null, // Color primario en los iconos
+        labelStyle: TextStyle(color:  Colors.white), // Color morado oscuro para la etiqueta
+        prefixIcon: icon != null ? Icon(icon, color:  Colors.white) : null, // Color primario en los iconos
         filled: true,
-        fillColor: Color(0xFFF1DEBD), // Fondo claro
+        fillColor: Color(0xFF08415C),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20), // Bordes redondeados
           borderSide: BorderSide.none,
         ),
+        suffixIcon: suffixIcon, // Agregar el icono del ojo aquí
       ),
       validator: validator,
     );
   }
+
 }

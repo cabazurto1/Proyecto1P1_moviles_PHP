@@ -59,7 +59,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar Usuario', style: TextStyle(color: Colors.white),),
-        backgroundColor: Color(0xFF5C6E6E),
+        backgroundColor: Color(0xFF08415C),
         foregroundColor: Colors.white,
       ),
       body: Container(
@@ -68,9 +68,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF331B3B), // Color oscuro de la paleta
-              Color(0xFF5C6E6E), // Gris suave
-              Color(0xFF333E50), // Otro tono oscuro
+              Color(0xFFB5FFE1),
+              Color(0xFF08415C),
             ],
           ),
         ),
@@ -141,13 +140,13 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   child: ElevatedButton(
                     onPressed: _updateUser,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF1DEBD),
+                      backgroundColor: Color(0xFF08415C),
                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: Text('Actualizar', style: TextStyle(fontSize: 18, color: Color(0xFF331B3B))),
+                    child: Text('Actualizar', style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
                 ),
               ],
@@ -172,13 +171,15 @@ class _EditUserScreenState extends State<EditUserScreen> {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      style: TextStyle(color: Color(0xFF08415C)),
       readOnly: readOnly,
       onTap: onTap,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: icon != null ? Icon(icon, color: Color(0xFF331B3B)) : null,
+        labelStyle: TextStyle(color:  Color(0xFF08415C)),
+        prefixIcon: icon != null ? Icon(icon, color: Color(0xFF08415C)) : null,
         filled: true,
-        fillColor: Color(0xFFF1DEBD),
+        fillColor:  Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide.none,

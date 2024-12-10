@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registrar Usuario', style: TextStyle(color: Colors.white),),
-        backgroundColor: Color(0xFF5C6E6E),
+        backgroundColor: Color(0xFF08415C),
         foregroundColor: Colors.white,
       ),
       body: Container(
@@ -59,9 +59,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF331B3B), // Color oscuro de la paleta
-              Color(0xFF5C6E6E), // Gris suave
-              Color(0xFF333E50), // Otro tono oscuro
+              Color(0xFF080705),
+              Color(0xFF08415C),
+              Color(0xFFB5FFE1),
             ],
           ),
         ),
@@ -179,7 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             child: const Text(
                               'Registrar',
-                              style: TextStyle(fontSize: 18, color: Color(0xFF331B3B)), // Color oscuro
+                              style: TextStyle(fontSize: 18, color: Color(0xFF08415C)), // Color oscuro
                             ),
                           ),
                         ),
@@ -224,13 +224,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      style: TextStyle(color: Colors.white),
       readOnly: readOnly,
       onTap: onTap,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: icon != null ? Icon(icon, color: Color(0xFF331B3B)) : null, // Color de los iconos
+        labelStyle: TextStyle(color:  Colors.white),
+        prefixIcon: icon != null ? Icon(icon, color: Colors.white) : null, // Color de los iconos
         filled: true,
-        fillColor: Color(0xFFF1DEBD), // Fondo claro
+        fillColor: Color(0xFF08415C),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20), // Bordes redondeados
           borderSide: BorderSide.none,

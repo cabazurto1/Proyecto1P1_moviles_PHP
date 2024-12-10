@@ -126,7 +126,7 @@
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF5C6E6E), // Color de fondo más suave
+          backgroundColor: Color(0xFF08415C), // Color de fondo más suave
           title: Text('Lista de Usuarios', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
           actions: [
             Row(
@@ -152,9 +152,9 @@
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF331B3B), // Color oscuro de la paleta
-                Color(0xFF5C6E6E), // Gris suave
-                Color(0xFF333E50), // Otro tono oscuro
+                Color(0xFFB5FFE1),
+                Color(0xFF08415C),
+
               ],
             ),
           ),
@@ -172,7 +172,7 @@
                   child: ListTile(
                     contentPadding: EdgeInsets.all(16),
                     leading: CircleAvatar(
-                      backgroundColor: Color(0xFF331B3B),
+                      backgroundColor: Color(0xFF08415C),
                       child: Text(user.name[0].toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                     title: Text(user.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
